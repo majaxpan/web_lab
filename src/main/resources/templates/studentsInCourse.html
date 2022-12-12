@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>WP lab - Students in Course</title>
+
+</head>
+<body>
+<header>
+    <h1>Students in Course </h1>
+</header>
+<section>
+    <div>Course with ID:<th:block th:text="${session.courseId}"></th:block></div>
+    <ul>
+        <div th:each="student : ${studentsInCourse}">
+            <li th:text="${student.getName()}"></li>
+        </div>
+    </ul>
+    <a href="/listCourses">Back</a>
+</section>
+
+</body>
+</html>
