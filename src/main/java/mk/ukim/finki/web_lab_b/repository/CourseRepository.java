@@ -2,6 +2,7 @@ package mk.ukim.finki.web_lab_b.repository;
 
 import mk.ukim.finki.web_lab_b.model.Course;
 import mk.ukim.finki.web_lab_b.model.Student;
+import mk.ukim.finki.web_lab_b.model.Teacher;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ public class CourseRepository {
     private List<Course> courses = new ArrayList<>();
 
     public CourseRepository() {
-        courses.add(new Course(1L, "Course 1", "course 1 description"));
-        courses.add(new Course(2L, "Course 2", "course 2 description"));
-        courses.add(new Course(3L, "Course 3", "course 3 description"));
-        courses.add(new Course(4L, "Course 4", "course 4 description"));
-        courses.add(new Course(5L, "Course 5", "course 5 description"));
+        courses.add(new Course("Course 1", "course 1 description"));
+        courses.add(new Course("Course 2", "course 2 description"));
+        courses.add(new Course("Course 3", "course 3 description"));
+        courses.add(new Course("Course 4", "course 4 description"));
+        courses.add(new Course("Course 5", "course 5 description"));
     }
 
     public List<Course> findAllCourses(){
@@ -36,6 +37,23 @@ public class CourseRepository {
     public Course addStudentToCourse(Student student, Course course){
         course.getStudents().add(student);
         return course;
+    }
+
+    public Course save(String courseName, String courseDesc, Optional<Teacher> teacher){
+        courses.removeIf(c -> c.getName().equals(courseName));
+        Course course = new Course(courseName, courseDesc, teacher.get());
+        courses.add(course);
+        return course;
+    }
+
+    public void delete(Long courseId){
+        courses.removeIf(c -> c.getCourseId().equals(courseId));
+    }
+
+    public Optional<Course> findByName(String name){
+        return courses.stream()
+                .filter(c -> c.getName().equals(name))
+                .findFirst();
     }
 }
 
