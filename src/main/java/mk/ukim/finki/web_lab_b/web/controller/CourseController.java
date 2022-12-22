@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -26,6 +27,14 @@ public class CourseController {
     public String getCoursesPage(@RequestParam(required = false) String error, Model model){
         model.addAttribute("courses", this.courseService.listAll());
         return "listCourses";
+    }
+
+    @PostMapping
+    public String addStudent(HttpServletRequest req, Model model){
+        req.getSession().setAttribute("courseId", req.getParameter("courseId"));
+//        Long courseId = (Long) req.getSession().getAttribute("courseId");
+//        req.getSession().setAttribute("courseId", courseId);
+        return "redirect:/addStudent";
     }
 
     @GetMapping("/add-form")

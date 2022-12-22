@@ -33,13 +33,17 @@
 </header>
 <section>
     <h2>Select the student to enroll:</h2>
-    <form th:method="POST">
+    <form th:method="POST" id="studentForm" th:action="@{'/addStudent'}">
         <a href="/createStudent" type='button'>Create New Student</a> <br/> <br/>
         <div th:each="student : ${students}">
-            <input type="radio" name="username" th:text="${student.getUsername().toString()}" th:value="${student.getUsername().toString()}">
+            <input type="radio"
+                   form="studentForm"
+                   name="username"
+                   th:text="${student.getUsername().toString()}"
+                   th:value="${student.getUsername().toString()}">
         </div>
         <br/>
-        <input type='submit' value='Submit'/>
+        <input type='submit' form="studentForm" value='Submit'/>
     </form>
 </section>
 <aside>

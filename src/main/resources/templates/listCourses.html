@@ -16,26 +16,35 @@
 </header>
 <main>
     <h2>Choose course:</h2>
-    <form>
-        <div th:each="course : ${courses}">
-            <input type="radio" name="courseId" id="courseId" th:value="${course.getCourseId()}" th:text="${course.getName()}">
-            <div>
-                <a th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}">
-                    <i>Edit</i>
-                </a>
-            </div>
-            <div>
-                <form th:method="delete" th:action="@{'/courses/delete/{id}' (id=${course.getCourseId()})}">
-                    <button type="submit">Delete</button>
-                </form>
-            </div>
-        </div>
-        <div>
-            <a href="/courses/add-form">Add new course</a>
-        </div>
-        <br/>
-        <input href="/addStudent" type="submit" value="Submit">
-    </form>
+    <div>
+        <form id="postForm" th:method="POST" th:action="@{'/courses'}"></form>
+        <table>
+            <tbody>
+            <tr th:each="course : ${courses}">
+                <td><input type="radio" form="postForm" name="courseId" th:value="${course.getCourseId()}">
+                    <th:block th:text="${course.getName()}"></th:block>
+                </td>
+                <td class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <th:block>
+                        <form th:method="delete" th:action="@{'/courses/delete/{id}' (id=${course.getCourseId()})}">
+                            <button type="submit">
+                                <i>Delete</i>
+                            </button>
+                        </form>
+                    </th:block>
+                    <th:block>
+                        <a th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}">
+                            <button type="submit">
+                                <i>Edit</i>
+                            </button>
+                        </a>
+                    </th:block>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" form="postForm" th:value="Submit">Submit</button>
+    </div>
 </main>
 </body>
 </html>
