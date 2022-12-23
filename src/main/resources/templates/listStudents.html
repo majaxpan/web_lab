@@ -37,8 +37,8 @@
         <a href="/createStudent" type='button'>Create New Student</a> <br/> <br/>
         <div th:each="student : ${students}">
             <input type="radio"
-                   form="studentForm"
                    name="username"
+                   form="studentForm"
                    th:text="${student.getUsername().toString()}"
                    th:value="${student.getUsername().toString()}">
         </div>
