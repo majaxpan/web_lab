@@ -27,7 +27,8 @@ public class StudentEnrollmentController {
             return "redirect:/addStudent";
         }
         String username = (String) req.getSession().getAttribute("username");
-        Long courseId = (Long) req.getSession().getAttribute("courseId");
+        String id = (String) req.getSession().getAttribute("courseId");
+        Long courseId = Long.valueOf(id);
 
         courseService.addStudentInCourse(username, courseId);
         model.addAttribute("studentsInCourse", courseService.listStudentsByCourse(courseId));
