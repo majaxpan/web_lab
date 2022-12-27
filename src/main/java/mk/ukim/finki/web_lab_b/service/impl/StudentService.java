@@ -1,6 +1,8 @@
 package mk.ukim.finki.web_lab_b.service.impl;
 
 import mk.ukim.finki.web_lab_b.model.Student;
+import mk.ukim.finki.web_lab_b.model.exceptions.InvalidPasswordException;
+import mk.ukim.finki.web_lab_b.model.exceptions.InvalidUsernameException;
 import mk.ukim.finki.web_lab_b.repository.impl.InMemoryStudentRepository;
 import mk.ukim.finki.web_lab_b.repository.jpa.StudentRepository;
 import mk.ukim.finki.web_lab_b.service.StudentServiceInterface;
@@ -29,6 +31,12 @@ public class StudentService implements StudentServiceInterface {
 
     @Override
     public Student save(String username, String password, String name, String surname) {
+        if(username == null || username.isEmpty()){
+            throw new InvalidUsernameException();
+        }
+        if(password == null || password.isEmpty()){
+            throw new InvalidPasswordException();
+        }
         Student student = new Student(username, password, name, surname);
         studentRepository.save(student);
         return student;

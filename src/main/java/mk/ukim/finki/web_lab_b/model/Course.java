@@ -39,6 +39,10 @@ public class Course {
     @Enumerated()
     private TYPE type;
 
+    public void setStudent(Student student) {
+        this.students.add(student);
+    }
+
     public Course() {
     }
 

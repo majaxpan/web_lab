@@ -39,12 +39,9 @@ public class CourseService implements CourseServiceInterface {
 
     @Override
     public Course addStudentInCourse(String username, Long courseId) {
-        //ne funkcionira
         Student student = studentRepository.findByUsername(username);
         Course course = courseRepository.findById(courseId).get();
-        //ova dodava in memory, ne vo baza
         courseRepository.findById(courseId).get().getStudents().add(student);
-        //studentRepository.save()
         return course;
     }
 
