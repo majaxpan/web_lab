@@ -1,6 +1,7 @@
 package mk.ukim.finki.web_lab_b.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,7 +22,11 @@ public class Grade {
     @OneToOne
     private Course course;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime timestamp;
+
+    public Grade() {
+    }
 
     public Grade(Character grade, Student student, Course course) {
         this.grade = grade;

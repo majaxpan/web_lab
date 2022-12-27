@@ -34,7 +34,10 @@
 <section>
     <h2>Select the student to enroll:</h2>
     <form th:method="POST" id="studentForm" th:action="@{'/addStudent'}">
-        <a href="/createStudent" type='button'>Create New Student</a> <br/> <br/>
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <a href="/createStudent" type='button'>Create New Student</a>
+        </th:block>
+         <br/> <br/>
         <div th:each="student : ${students}">
             <input type="radio"
                    name="username"
@@ -45,7 +48,19 @@
         <br/>
         <input type='submit' form="studentForm" value='Submit'/>
     </form>
+    </br>
+    <th:block sec:authorize="isAuthenticated()">
+        <a href="/logout">
+            Logout
+        </a>
+    </th:block>
+    <th:block sec:authorize="!isAuthenticated()">
+        <a href="/login">
+            Login
+        </a>
+    </th:block>
 </section>
+
 <aside>
     <table>
         <tr>

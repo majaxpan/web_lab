@@ -1,7 +1,6 @@
 package mk.ukim.finki.web_lab_b.web.controller;
 
 import mk.ukim.finki.web_lab_b.service.impl.CourseService;
-import mk.ukim.finki.web_lab_b.service.impl.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/studentsEnrollment")
 public class StudentEnrollmentController {
 
-    private final StudentService studentService;
+    //private final GradeService gradeService;
     private final CourseService courseService;
 
-    public StudentEnrollmentController(StudentService studentService, CourseService courseService) {
-        this.studentService = studentService;
+    public StudentEnrollmentController(CourseService courseService) {
+        //this.gradeService = gradeService;
         this.courseService = courseService;
     }
 

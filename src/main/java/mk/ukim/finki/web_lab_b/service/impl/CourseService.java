@@ -3,8 +3,12 @@ package mk.ukim.finki.web_lab_b.service.impl;
 import mk.ukim.finki.web_lab_b.model.Course;
 import mk.ukim.finki.web_lab_b.model.Student;
 import mk.ukim.finki.web_lab_b.model.Teacher;
-import mk.ukim.finki.web_lab_b.repository.CourseRepository;
+import mk.ukim.finki.web_lab_b.repository.impl.InMemoryCourseRepository;
+import mk.ukim.finki.web_lab_b.repository.jpa.CourseRepository;
+import mk.ukim.finki.web_lab_b.repository.jpa.StudentRepository;
+import mk.ukim.finki.web_lab_b.repository.jpa.TeacherRepository;
 import mk.ukim.finki.web_lab_b.service.CourseServiceInterface;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,43 +18,46 @@ import java.util.Optional;
 public class CourseService implements CourseServiceInterface {
 
     private final CourseRepository courseRepository;
-    private final StudentService studentService;
-    private final TeacherService teacherService;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
 
-    public CourseService(CourseRepository courseRepository, StudentService studentService, TeacherService teacherService) {
-        this.courseRepository = courseRepository;
-        this.studentService = studentService;
-        this.teacherService = teacherService;
+    public CourseService(CourseRepository courseRepository, StudentRepository studentRepository, TeacherRepository teacherRepository) {
+        this.courseRepository =  courseRepository;
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     @Override
     public List<Student> listStudentsByCourse(Long courseId) {
-        return courseRepository.findAllStudentsByCourse(courseId);
+        return courseRepository.findById(courseId).get().getStudents();
     }
 
     public Optional<Course> findById(Long id){
         return courseRepository.findById(id);
     }
 
+
     @Override
     public Course addStudentInCourse(String username, Long courseId) {
-        Student student = studentService.listAll().stream().filter(s->s.getUsername().equals(username)).findFirst().get();
+        //ne funkcionira
+        Student student = studentRepository.findByUsername(username);
         Course course = courseRepository.findById(courseId).get();
-        courseRepository.addStudentToCourse(student, course);
+        //ova dodava in memory, ne vo baza
+        courseRepository.findById(courseId).get().getStudents().add(student);
+        //studentRepository.save()
         return course;
     }
 
     @Override
-    public Course save(String courseName, String courseDesc, Long teacherId) {
-        Optional<Teacher> teacher = teacherService.findById(teacherId);
-        courseRepository.save(courseName, courseDesc, teacher);
-        return new Course(courseName, courseDesc, teacher.get());
-
+    public void save(String courseName, String courseDesc, Long teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId).get();
+        Course course = new Course(courseName, courseDesc, teacher);
+        courseRepository.save(course);
     }
 
     @Override
     public void delete(Long courseId) {
-        courseRepository.delete(courseId);
+        courseRepository.deleteById(courseId);
     }
 
     @Override
@@ -59,6 +66,6 @@ public class CourseService implements CourseServiceInterface {
     }
 
     public List<Course> listAll(){
-        return courseRepository.findAllCourses();
+        return courseRepository.findAll();
     }
 }

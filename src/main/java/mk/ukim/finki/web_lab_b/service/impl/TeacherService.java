@@ -1,7 +1,8 @@
 package mk.ukim.finki.web_lab_b.service.impl;
 
 import mk.ukim.finki.web_lab_b.model.Teacher;
-import mk.ukim.finki.web_lab_b.repository.TeacherRepository;
+import mk.ukim.finki.web_lab_b.repository.impl.InMemoryTeacherRepository;
+import mk.ukim.finki.web_lab_b.repository.jpa.TeacherRepository;
 import mk.ukim.finki.web_lab_b.service.TeacherServiceInterface;
 import org.springframework.stereotype.Service;
 

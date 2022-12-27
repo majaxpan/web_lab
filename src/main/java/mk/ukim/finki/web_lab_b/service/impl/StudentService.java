@@ -1,7 +1,8 @@
 package mk.ukim.finki.web_lab_b.service.impl;
 
 import mk.ukim.finki.web_lab_b.model.Student;
-import mk.ukim.finki.web_lab_b.repository.StudentRepository;
+import mk.ukim.finki.web_lab_b.repository.impl.InMemoryStudentRepository;
+import mk.ukim.finki.web_lab_b.repository.jpa.StudentRepository;
 import mk.ukim.finki.web_lab_b.service.StudentServiceInterface;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +19,18 @@ public class StudentService implements StudentServiceInterface {
 
     @Override
     public List<Student> listAll() {
-        return studentRepository.findAllStudents();
+        return studentRepository.findAll();
     }
 
     @Override
     public List<Student> searchByNameOrSurname(String text) {
-        return studentRepository.findAllByNameOrSurname(text);
+        return studentRepository.findAllByNameOrSurname(text, text);
     }
 
     @Override
     public Student save(String username, String password, String name, String surname) {
         Student student = new Student(username, password, name, surname);
-        studentRepository.findAllStudents().add(student);
+        studentRepository.save(student);
         return student;
     }
 }

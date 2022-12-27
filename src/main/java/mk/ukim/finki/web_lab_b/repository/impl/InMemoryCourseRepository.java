@@ -1,4 +1,4 @@
-package mk.ukim.finki.web_lab_b.repository;
+package mk.ukim.finki.web_lab_b.repository.impl;
 
 import mk.ukim.finki.web_lab_b.model.Course;
 import mk.ukim.finki.web_lab_b.model.Student;
@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class CourseRepository {
+public class InMemoryCourseRepository {
 
     private List<Course> courses = new ArrayList<>();
 
-    public CourseRepository() {
-        courses.add(new Course("Course 1", "course 1 description"));
-        courses.add(new Course("Course 2", "course 2 description"));
-        courses.add(new Course("Course 3", "course 3 description"));
-        courses.add(new Course("Course 4", "course 4 description"));
-        courses.add(new Course("Course 5", "course 5 description"));
+    public InMemoryCourseRepository() {
+//        courses.add(new Course("Course 1", "course 1 description"));
+//        courses.add(new Course("Course 2", "course 2 description"));
+//        courses.add(new Course("Course 3", "course 3 description"));
+//        courses.add(new Course("Course 4", "course 4 description"));
+//        courses.add(new Course("Course 5", "course 5 description"));
     }
 
     public List<Course> findAllCourses(){

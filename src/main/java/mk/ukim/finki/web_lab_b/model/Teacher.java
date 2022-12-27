@@ -1,6 +1,7 @@
 package mk.ukim.finki.web_lab_b.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,11 @@ public class Teacher {
 
     private String surname;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfEmployment;
+
+    public Teacher() {
+    }
 
     public Teacher(String name, String surname) {
         //this.id=idSeed++;

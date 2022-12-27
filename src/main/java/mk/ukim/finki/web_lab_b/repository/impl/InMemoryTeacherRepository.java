@@ -1,4 +1,4 @@
-package mk.ukim.finki.web_lab_b.repository;
+package mk.ukim.finki.web_lab_b.repository.impl;
 
 import mk.ukim.finki.web_lab_b.model.Teacher;
 import org.springframework.stereotype.Repository;
@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TeacherRepository {
+public class InMemoryTeacherRepository {
 
     private List<Teacher> teachers = new ArrayList<>();
 
-    public TeacherRepository() {
+    public InMemoryTeacherRepository() {
         teachers.add(new Teacher("Teacher 1", "Surname"));
         teachers.add(new Teacher("Teacher 2", "Surname"));
         teachers.add(new Teacher("Teacher 3", "Surname"));

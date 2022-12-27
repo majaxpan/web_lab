@@ -16,8 +16,17 @@
             <li th:text="${student.getName()}"></li>
         </div>
     </ul>
-    <a href="/listCourses">Back</a>
+    <a href="/courses">Back</a>
 </section>
-
+<th:block sec:authorize="isAuthenticated()">
+    <a href="/logout">
+        Logout
+    </a>
+</th:block>
+<th:block sec:authorize="!isAuthenticated()">
+    <a href="/login">
+        Login
+    </a>
+</th:block>
 </body>
 </html>

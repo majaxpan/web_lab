@@ -1,4 +1,4 @@
-package mk.ukim.finki.web_lab_b.web;
+package mk.ukim.finki.web_lab_b.web.servlets;
 
 import mk.ukim.finki.web_lab_b.model.Student;
 import mk.ukim.finki.web_lab_b.service.impl.StudentService;
@@ -52,8 +52,8 @@ public class CreateStudentServlet extends HttpServlet {
             String name = req.getParameter("name");
             String surname = req.getParameter("surname");
 
-            studentService.listAll().add(new Student(username, password, name, surname));
-            resp.sendRedirect("/AddStudent");
+            studentService.save(username, password, name, surname);
+            resp.sendRedirect("/addStudent");
         }
     }
 }

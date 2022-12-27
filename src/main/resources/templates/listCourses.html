@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <title>Welcome and Choose a Course</title>
@@ -25,14 +26,14 @@
                     <th:block th:text="${course.getName()}"></th:block>
                 </td>
                 <td class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <form th:method="delete" th:action="@{'/courses/delete/{id}' (id=${course.getCourseId()})}">
                             <button type="submit">
                                 <i>Delete</i>
                             </button>
                         </form>
                     </th:block>
-                    <th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <a th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}">
                             <button type="submit">
                                 <i>Edit</i>
@@ -43,8 +44,24 @@
             </tr>
             </tbody>
         </table>
+        <div>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="/courses/add-form">Add new course</a>
+            </th:block>
+        </div>
         <button type="submit" form="postForm" th:value="Submit">Submit</button>
     </div>
 </main>
+</br>
+<th:block sec:authorize="isAuthenticated()">
+    <a href="/logout">
+        Logout
+    </a>
+</th:block>
+<th:block sec:authorize="!isAuthenticated()">
+    <a href="/login">
+        Login
+    </a>
+</th:block>
 </body>
 </html>

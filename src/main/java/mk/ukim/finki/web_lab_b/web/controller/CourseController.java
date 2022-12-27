@@ -4,6 +4,7 @@ import mk.ukim.finki.web_lab_b.model.Course;
 import mk.ukim.finki.web_lab_b.model.Teacher;
 import mk.ukim.finki.web_lab_b.service.impl.CourseService;
 import mk.ukim.finki.web_lab_b.service.impl.TeacherService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class CourseController {
     }
 
     @GetMapping("/add-form")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getAddCoursePage(Model model){
         List<Teacher> teachers = teacherService.findAll();
         model.addAttribute("teachers", teachers);
@@ -53,12 +55,14 @@ public class CourseController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteCourse(@PathVariable Long id){
         this.courseService.delete(id);
         return "redirect:/courses";
     }
 
     @GetMapping("/edit-form/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getEditCoursePage(@PathVariable Long id, Model model){
         if(this.courseService.findById(id).isPresent()){
             Course course = this.courseService.findById(id).get();
